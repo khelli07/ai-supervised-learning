@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import random
 from collections import Counter
 
@@ -109,27 +110,12 @@ class ID3:
         return total, np.sum([-p * np.log2(p) for p in proba.values()])
 
 
+# ===== Uncomment if you want to try to run this =====
 # Data are assumed to be cleaned first
-data = [
-    # fever, cough, breathing, infected
-    [0, 0, 0, 0],
-    [1, 1, 1, 1],
-    [1, 1, 0, 0],
-    [1, 0, 1, 1],
-    [1, 1, 1, 1],
-    [0, 1, 0, 0],
-    [1, 0, 1, 1],
-    [1, 0, 1, 1],
-    [1, 0, 1, 1],
-    [0, 1, 1, 1],
-    [1, 1, 0, 1],
-    [0, 1, 0, 0],
-    [0, 1, 1, 1],
-    [0, 1, 1, 0],
-    [1, 1, 0, 0],
-]
+# data = pd.read_csv("./data/sample_data.csv")
+# data = np.array(data)
 
-tree = ID3()
-tree.fit(np.array(data))
-tree.print_tree(tree.root, 0)
-print(tree.predict(np.array([0, 1, 0])))
+# tree = ID3()
+# tree.fit(np.array(data))
+# tree.print_tree(tree.root, 0)
+# print(tree.predict(np.array([0, 1, 0])))

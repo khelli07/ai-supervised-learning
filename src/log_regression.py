@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 class LogisticRegression:  # is a Perceptron
@@ -14,10 +15,9 @@ class LogisticRegression:  # is a Perceptron
 
         # train
         for i in range(epochs):
-            linear = self.__activate(X)
             ypred = self.predict(X)
 
-            delta = (ypred - y) * self.__sigmoid_prime(linear)
+            delta = ypred - y
             self.__update_coeff(X, delta)
 
             loss = self.__loss(ypred.reshape(-1, 1)[0], y)
@@ -42,21 +42,19 @@ class LogisticRegression:  # is a Perceptron
         inputs[-inputs > logmax] = logmax
         return 1.0 / (1.0 + np.exp(-inputs, dtype=np.float64))
 
-    def __sigmoid_prime(self, inputs):
-        tmp = self.__sigmoid(inputs)
-        return tmp * (1.0 - tmp)
-
     def __loss(self, ypred, ytrue):
-        n = len(ytrue)
-        return (-1 / n) * np.sum(
-            np.nan_to_num(ytrue * np.log(ypred) + (1 - ytrue) * np.log(1 - ypred))
+        return np.sum(
+            np.nan_to_num(-ytrue * np.log(ypred) - (1 - ytrue) * np.log(1 - ypred))
         )
 
+# ===== Uncomment if you want to try to run this =====
+# Data are assumed to be cleaned first
+# data = pd.read_csv("./data/sample_data.csv")
+# data = np.array(data)
+# X = data[:, :-1]
+# y = data[:, -1]
 
-X = np.array([[1, 5], [2, 8], [3, 2], [4, 6]])
-y = np.array([0, 1, 0, 1])
-
-np.random.seed(0)
-model = LogisticRegression()
-model.fit(X, y, epochs=5000, learning_rate=5e-4)
-print(model.classify_prediction(model.predict(X)))
+# np.random.seed(300)
+# model = LogisticRegression()
+# model.fit(X, y, epochs=5000, learning_rate=1e-4)
+# print(model.classify_prediction(model.predict(X)))

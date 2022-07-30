@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from collections import Counter
 
 
@@ -36,15 +37,11 @@ class KNN:
         return np.sqrt(sum_of_squared)
 
 
-data = [
-    [1, 1, 1, 5, 0],
-    [0, 4, 0, 4, 0],
-    [2, 3, 3, 3, 1],
-    [2, 4, 3, 3, 1],
-    [2, 3, 4, 4, 1],
-    [6, 4, 3, 5, 1],
-]
+# ===== Uncomment if you want to try to run this =====
+# Data are assumed to be cleaned first
+# data = pd.read_csv("./data/sample_data.csv")
+# data = np.array(data)
 
-X = [1, 10, 1, 10]
+# X = [1, 0, 1, 1]
 
-print(KNN(np.array(data), 5, is_clf=True).predict(X))
+# print(KNN(np.array(data), 5, is_clf=True).predict(X))
